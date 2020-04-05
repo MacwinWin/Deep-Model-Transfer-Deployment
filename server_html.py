@@ -179,7 +179,6 @@ def root():
             filename = rename_filename(old_file_name)
             file_path = os.path.join(UPLOAD_FOLDER, filename)
             file.save(file_path)
-            type_name = 'N/A'
             print('file saved to %s' % file_path)
             start_time = time.time()
             out_html = inference(file_path)
@@ -195,8 +194,9 @@ if __name__ == "__main__":
     label_file = label_file + '.label'
     node_lookup = NodeLookup(label_file)
     app.node_lookup = node_lookup
-    #config = tf.ConfigProto(device_count = {'GPU':0})
-    #sess = tf.Session(config=config)
-    sess = tf.Session()
+    config = tf.ConfigProto()
+    # config = tf.compat.v1.ConfigProto()
+    config.gpu_options.allow_growth = True
+    sess = tf.Session(config=config)
     app.sess = sess
     app.run(host='0.0.0.0', port=FLAGS.port, debug=FLAGS.debug, threaded=True)

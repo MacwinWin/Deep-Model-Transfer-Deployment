@@ -95,8 +95,8 @@ def inference(file_name):
         i = i+1
     return format_string
 
-@app.route("/", methods=['POST'])
-def root():
+@app.route("/FROMURL", methods=['POST'], endpoint='fromurl')
+def fromurl():
     image_url = request.json['url']
     #image_url = request.form['url']
     if image_url != '':
@@ -115,6 +115,22 @@ def root():
             duration = time.time() - start_time
             print('duration:[%.0fms]' % (duration*1000))
             return json.dumps(inference_result)
+        
+@app.route("/FROMFILE", methods=['POST'], endpoint='fromfile')
+def fromfile():
+    file = request.files['file']
+    old_file_name = file.filename
+    if file and allowed_files(old_file_name):
+        filename = rename_filename(old_file_name)
+        file_path = os.path.join(UPLOAD_FOLDER, filename)
+        file.save(file_path)
+        print('file saved to %s' % file_path)
+        start_time = time.time()
+        inference_result = inference(file_path)
+        print(inference_result)
+        duration = time.time() - start_time
+        print('duration:[%.0fms]' % (duration*1000))
+        return json.dumps(inference_result)
 
 if __name__ == "__main__":
     print('listening on port %d' % FLAGS.port)
@@ -123,8 +139,9 @@ if __name__ == "__main__":
     label_file = label_file + '.label'
     node_lookup = NodeLookup(label_file)
     app.node_lookup = node_lookup
-    #config = tf.ConfigProto(device_count = {'GPU':0})
-    #sess = tf.Session(config=config)
-    sess = tf.Session()
+    config = tf.ConfigProto()
+    # config = tf.compat.v1.ConfigProto()
+    config.gpu_options.allow_growth = True
+    sess = tf.Session(config=config)
     app.sess = sess
     app.run(host='0.0.0.0', port=FLAGS.port, debug=FLAGS.debug, threaded=True)
