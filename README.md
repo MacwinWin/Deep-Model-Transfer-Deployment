@@ -1,5 +1,7 @@
 # Deep-Model-Transfer-Deployment
-methods to deploy the tf image classification model
+After comparing the accuracy and speed of several models, I finally select Inception-v3 to deploy my 102 classes flower classification project which was trained on [Oxford-102 flower dataset](http://www.robots.ox.ac.uk/~vgg/data/flowers/102/). The final model file in [this folder](https://github.com/MacwinWin/Deep-Model-Transfer-Deployment/tree/master/all_102_inception_v3) which include the freezed pb file.
+
+Other project including 🕊️[Bird-200](http://www.vision.caltech.edu/visipedia/CUB-200.html), 🚗[Car-196](https://ai.stanford.edu/~jkrause/cars/car_dataset.html), 🐶[Dog-120](http://vision.stanford.edu/aditya86/ImageNetDogs/), 🐶🐱[Pet-37](http://www.robots.ox.ac.uk/~vgg/data/pets/) described in [Deep-Model-Transfer](https://github.com/MacwinWin/Deep-Model-Transfer) will be enclosed in the future.
 
 [![Documentation](https://img.shields.io/badge/TensorFlow-1.5.0%2B-green.svg)]()
 [![Documentation](https://img.shields.io/badge/TensorFlow-2.0.0%2B-green.svg)]()
