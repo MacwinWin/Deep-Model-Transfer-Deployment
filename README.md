@@ -70,6 +70,7 @@ If upload image file:
 
 If upload image URL path:
 - `"file":string` .jpg image URL path
+
 If upload image file:
 - `"file":binary` .jpg image binary file
 
