@@ -61,10 +61,12 @@ get result
 **Definition**
 
 If upload image URL path:
-`POST /FROMURL`
+
+- `POST /FROMURL`
 
 If upload image file:
-`POST /FROMFILE`
+
+- `POST /FROMFILE`
 
 **Arguments**
 
